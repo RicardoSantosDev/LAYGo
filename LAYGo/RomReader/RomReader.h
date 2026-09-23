@@ -9,6 +9,7 @@ This class is used to read the rom and to provide access to its contents.
 #pragma once
 #include <vector>
 #include <string>
+#include <span>
 
 namespace laygo
 {
@@ -18,6 +19,7 @@ namespace laygo
         std::vector<char> rom_data_;
     public:
         RomReader(std::string filename);
+        std::span<const char> getGameName() const;
         [[nodiscard]] std::vector<char> getRomData() const;
     };
 }

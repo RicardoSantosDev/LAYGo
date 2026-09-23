@@ -110,6 +110,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -156,12 +157,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ConsoleApplication1.cpp" />
+    <ClCompile Include="Console\CPU.cpp" />
     <ClCompile Include="RomReader\RomReader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="x64\" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Console\CPU.h" />
     <ClInclude Include="RomReader\RomReader.h" />
   </ItemGroup>
   <ItemGroup>

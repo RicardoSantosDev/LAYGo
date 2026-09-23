@@ -3,6 +3,12 @@
 #include <fstream>
 #include <iterator>
 
+#include <cstddef>
+
+#include <stdexcept>
+#include <string>
+#include <vector>
+
 namespace laygo
 {
 
@@ -19,6 +25,11 @@ namespace laygo
         rom_data_.assign(std::istreambuf_iterator<char>(rom),
                         std::istreambuf_iterator<char>());
 
+    }
+
+    std::span<const char> RomReader::getGameName() const
+    {
+        return std::span<const char>(rom_data_.data() + 0x134, 16);
     }
 
     std::vector<char> RomReader::getRomData() const
