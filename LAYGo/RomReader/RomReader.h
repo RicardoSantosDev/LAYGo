@@ -13,14 +13,13 @@ This class is used to read the rom and to provide access to its contents.
 
 namespace laygo
 {
-    class RomReader
+    class rom_reader
     {
-    private:
         std::vector<char> rom_data_;
     public:
-        RomReader(std::string filename);
-        std::span<const char> getGameName() const;
-        [[nodiscard]] std::vector<char> getRomData() const;
+        explicit rom_reader(const std::string& filename);
+        [[nodiscard]] std::span<const char> get_game_name() const;
+        [[nodiscard]] std::vector<char> get_rom_data() const;
     };
 }
 

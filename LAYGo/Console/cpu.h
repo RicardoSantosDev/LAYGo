@@ -1,5 +1,7 @@
 #pragma once
 #include <cstdint>
+#include <string>
+#include <unordered_map>
 
 /**
  * ---- REGISTERS ----
@@ -45,102 +47,8 @@
  */
 namespace laygo
 {
-    class CPU
+    struct cpu_registers
     {
-    public:
-        CPU();
-        // Return CPU flags
-        // Getters and setters for the registers
-        std::uint8_t get_register_a() const
-        {
-            return a;
-        }
-
-        std::uint8_t set_register_a(std::uint8_t new_value)
-        {
-            a = new_value;
-            return a;
-        }
-
-        std::uint8_t get_register_b() const
-        {
-            return b;
-        }
-
-        std::uint8_t set_register_b(std::uint8_t new_value)
-        {
-            b = new_value;
-            return b;
-        }
-
-        std::uint8_t get_register_c() const
-        {
-            return c;
-        }
-
-        std::uint8_t set_register_c(std::uint8_t new_value)
-        {
-            c = new_value;
-            return c;
-        }
-
-        std::uint8_t get_register_d() const
-        {
-            return d;
-        }
-
-        std::uint8_t set_register_d(std::uint8_t new_value)
-        {
-            d = new_value;
-            return d;
-        }
-
-        std::uint8_t get_register_e() const
-        {
-            return e;
-        }
-
-        std::uint8_t set_register_e(std::uint8_t new_value)
-        {
-            e = new_value;
-            return e;
-        }
-
-        std::uint8_t get_register_f() const
-        {
-            return f;
-        }
-
-        std::uint8_t set_register_f(std::uint8_t new_value)
-        {
-            f = new_value;
-            return f;
-        }
-
-        std::uint8_t get_register_h() const
-        {
-            return h;
-        }
-
-        std::uint8_t set_register_h(std::uint8_t new_value)
-        {
-            h = new_value;
-            return h;
-        }
-        
-        std::uint8_t get_register_l() const
-        {
-            return l;
-        }
-
-        std::uint8_t set_register_l(std::uint8_t new_value)
-        {
-            l = new_value;
-            return l;
-        }
-
-    private:
-        // Define CPU registers
         std::uint8_t a{0x00};
         std::uint8_t b{0x00};
         std::uint8_t c{0x00};
@@ -149,7 +57,104 @@ namespace laygo
         std::uint8_t f{0x00};
         std::uint8_t h{0x00};
         std::uint8_t l{0x00};
-        // Define CPU operations
+    };
+    class cpu
+    {
+    public:
+        cpu();
+        // Getters and setters for the registers_
+
+        [[nodiscard]] std::uint8_t get_register(const std::string& register_name) const
+        {
+            return register_map_.at(register_name);
+        }
+        
+        std::uint8_t set_register(const std::string& register_name, std::uint8_t const new_value)
+        {
+            register_map_.at(register_name) = new_value;
+            return register_map_.at(register_name);
+        }
+        
+        // Access CPU flags
+        
+        void set_flag_zero()
+        {
+            registers_.f = registers_.f | 0b10000000;
+        }
+        
+        void reset_flag_zero()
+        {
+            registers_.f = registers_.f & 0b01111111;
+        }
+        
+        void set_flag_subtraction()
+        {
+            registers_.f = registers_.f | 0b01000000;
+        }
+        
+        void reset_flag_subtraction()
+        {
+            registers_.f = registers_.f & 0b10111111;
+        }
+        
+        void set_flag_half_carry()
+        {
+            registers_.f = registers_.f | 0b00100000;
+        }
+        
+        void reset_flag_half_carry()
+        {
+            registers_.f = registers_.f & 0b11011111;
+        }
+        
+        void set_flag_carry()
+        {
+            registers_.f = registers_.f | 0b00010000;
+        }
+        
+        void reset_flag_carry()
+        {
+            registers_.f = registers_.f & 0b11101111;
+        }
+        
+        // Check flags
+
+        [[nodiscard]] bool is_flag_zero_set() const
+        {
+            return registers_.f & 0b10000000;
+        }
+
+        [[nodiscard]] bool is_flag_subtraction_set() const
+        {
+            return registers_.f & 0b01000000;
+        }
+
+        [[nodiscard]] bool is_flag_half_carry_set() const
+        {
+            return registers_.f & 0b00100000;
+        }
+
+        [[nodiscard]] bool is_flag_carry_set() const
+        {
+            return registers_.f & 0b00010000;
+        }
+
+    private:
+        // Define CPU registers_
+        cpu_registers registers_;
+        
+        std::unordered_map<std::string, std::uint8_t> register_map_ = 
+            {
+            { "a", 0x00 },
+            { "b", 0x00 },
+            { "c", 0x00 },
+            { "d", 0x00 },
+            { "e", 0x00 },
+            { "f", 0x00 },
+            { "h", 0x00 },
+            { "l", 0x00 }
+        };
+        // Define cpu operations
     
     };
 }

@@ -157,14 +157,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ConsoleApplication1.cpp" />
-    <ClCompile Include="Console\CPU.cpp" />
+    <ClCompile Include="Console\cpu.cpp" />
     <ClCompile Include="RomReader\RomReader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="x64\" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Console\CPU.h" />
+    <ClInclude Include="Console\cpu.h" />
     <ClInclude Include="RomReader\RomReader.h" />
   </ItemGroup>
   <ItemGroup>

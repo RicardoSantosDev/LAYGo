@@ -1,8 +1,8 @@
-#include "CPU.h"
+#include "cpu.h"
 
 namespace laygo
 {
-    CPU::CPU()
+    cpu::cpu()
     {
         return;
     }

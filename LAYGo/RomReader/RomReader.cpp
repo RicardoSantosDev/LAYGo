@@ -3,8 +3,6 @@
 #include <fstream>
 #include <iterator>
 
-#include <cstddef>
-
 #include <stdexcept>
 #include <string>
 #include <vector>
@@ -12,7 +10,7 @@
 namespace laygo
 {
 
-    RomReader::RomReader(std::string filename)
+    rom_reader::rom_reader(const std::string& filename)
     {
         std::ifstream rom(filename, std::ios::binary);
 
@@ -22,17 +20,17 @@ namespace laygo
             return;
         }
         
-        rom_data_.assign(std::istreambuf_iterator<char>(rom),
+        rom_data_.assign(std::istreambuf_iterator(rom),
                         std::istreambuf_iterator<char>());
 
     }
 
-    std::span<const char> RomReader::getGameName() const
+    std::span<const char> rom_reader::get_game_name() const
     {
-        return std::span<const char>(rom_data_.data() + 0x134, 16);
+        return {rom_data_.data() + 0x134, 16};
     }
 
-    std::vector<char> RomReader::getRomData() const
+    std::vector<char> rom_reader::get_rom_data() const
     {
         return rom_data_;
     }
